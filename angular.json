@@ -33,9 +33,12 @@
             "styles": [
               "src/styles.scss",
               "node_modules/bulma/css/bulma.min.css",
-              "node_modules/@creativebulma/bulma-tooltip/dist/bulma-tooltip.min.css"
+              "node_modules/@creativebulma/bulma-tooltip/dist/bulma-tooltip.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/@fortawesome/fontawesome-free/js/all.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -101,9 +104,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/bulma/css/bulma.min.css",
+              "node_modules/@creativebulma/bulma-tooltip/dist/bulma-tooltip.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/@fortawesome/fontawesome-free/js/all.min.js"
+            ]
           }
         }
       }
