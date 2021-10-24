@@ -1,55 +1,28 @@
 NAME     := ip-calc-practice
 VERSION  := v0.0.1
-REVISION := $(shell git rev-parse --short HEAD)
 
-SRCS    := $(shell find ./server -type f -name '*.go')
-DSTDIR  := /srv/http/bin
+DSTDIR  := /srv/http/$(NAME)
 USER    := http
 GROUP   := http
-LDFLAGS := -ldflags="-s -w -X \"main.Version=$(VERSION)\" -X \"main.Revision=$(REVISION)\" -extldflags \"-static\""
 
-GOVER     := $(shell go version | awk '{ print substr($$3, 3) }' | tr "." " ")
-VER_JUDGE := $(shell if [ $(word 1,$(GOVER)) -eq 1 ] && [ $(word 2,$(GOVER)) -le 10 ]; then echo 0; else echo 1; fi)
-
-FRONT_DSTDIR := /srv/http/$(NAME)
 
 run:
-	go run server/*.go
+	ng serve
 
-init:
-ifeq ($(VER_JUDGE),1)
-	go mod init
-else
-	echo "Packageの取得は手動で行ってください"
-endif
+#build:
 
-build: $(SRCS)
-	@go build -a -tags netgo -installsuffix netgo $(LDFLAGS) -o bin/$(NAME)
 
 install:
-	@command cp -r bin/$(NAME) $(DSTDIR)/
-	@chown $(USER):$(GROUP) $(DSTDIR)/$(NAME)
+	@command cp -r dist/* $(DSTDIR)/
+	@chown -R $(USER):$(GROUP) $(DSTDIR)
 
-uninstall: revoke_service
-	@rm -f $(DSTDIR)/$(NAME)
-
-create_service:
-	@echo -e "[Unit]\nDescription=$(NAME)(Golang App)\n\n[Service]\nEnvironment=\"GIN_MODE=release\"\nWorkingDirectory=$(DSTDIR)/\n\nExecStart=$(DSTDIR)/$(NAME)\nExecStop=/bin/kill -HUP $MAINPID\nExecReload=/bin/kill -HUP $MAINPID && $(DSTDIR)/$(NAME)\n\nRestart=always\nType=simple\nUser=$(USER)\nGroup=$(GROUP)\n\n[Install]\nWantedBy=multi-user.target" | tee /etc/systemd/system/$(NAME).service
-	@systemctl enable $(NAME).service
-
-start: create_service
-	@systemctl start $(NAME).service
-
-revoke_service: /etc/systemd/system/$(NAME).service
-	@systemctl stop $(NAME).service
-	@systemctl disable $(NAME).service
-	@rm -f /etc/systemd/system/$(NAME).service
+uninstall:
+	@rm -f $(DSTDIR)
 
 clean:
-	@rm -rf bin/*
-	@rm -rf vendor/*
+	@rm -rf dist/*
 
-.PHONY: test
-test:
-	@go test
+#.PHONY: test
+#test:
+#	@
 
