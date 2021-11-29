@@ -35,6 +35,7 @@ chrome-profiler-events*.json
 .history/*
 
 # misc
+.angular
 .sass-cache
 connect.lock
 coverage
@@ -43,25 +44,6 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
-
-# Binaries for programs and plugins
-*.exe
-*.exe~
-*.dll
-*.so
-*.dylib
-
-# Test binary, build with `go test -c`
-*.test
-
-# Output of the go coverage tool, specifically when used with LiteIDE
-*.out
-go.mod
-go.sum
-
-# Ignore the SQLite database.
-db/*.sqlite3
-db/*.sqlite3-journal
 
 # System Files
 .DS_Store
