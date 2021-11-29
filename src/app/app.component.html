@@ -1,36 +1,24 @@
-<div class="columns is-centered" style="margin-top: 15vh;">
-  <div class="column is-half">
-    <div class="block">
-      <h3 class="title has-text-centered">★IPアドレス計算練習★</h3>
+<section class="hero is-primary mb-5">
+  <div class="hero-body">
+    <div class="box">
+      <h1 class="title is-5 has-text-centered has-text-black">★IPアドレス計算練習★</h1>
     </div>
-
-    <form class="box">
-      <p class="label mb-4">■問題数を選択してください</p>
-
-      <p class="field has-addons">
-        <span class="control is-expanded">
-          <span class="select is-fullwidth">
-            <select id="number" name="number">
-              <option value="10" selected>10問</option>
-              <option value="20">20問</option>
-              <option value="30">30問</option>
-              <option value="40">40問</option>
-              <option value="50">50問</option>
-              <option value="75">75問</option>
-              <option value="100">100問</option>
-            </select>
-          </span>
-        </span>
-
-        <span class="control">
-          <input type="submit" id="start" class="button is-primary" value="開始">
-        </span>
-      </p>
-    </form>
   </div>
-</div>
+</section>
 
-<app-answer></app-answer>
+<section style="display: inline;">
+  <div class="columns is-centered">
+    <div class="column is-one-quarter">
+      <button class="button is-primary is-fullwidth">始めから</button>
+    </div>
+    <div class="column is-one-quarter">
+      <button class="button is-primary is-fullwidth">続きから</button>
+    </div>
+  </div>
+</section>
 
-<app-result><app-result>
+<app-choice style="display: none;"></app-choice>
 
+<app-answer style="display: inline;"></app-answer>
+
+<app-result style="display: none;"><app-result>
