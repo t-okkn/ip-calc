@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'ip-calc-prac'`, () => {
+  it(`should have as title 'ip-calc-practice'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('ip-calc-prac');
+    expect(app.title).toEqual('ip-calc-practice');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('ip-calc-prac app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('ip-calc-practice app is running!');
   });
 });
