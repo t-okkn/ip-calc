@@ -6,6 +6,8 @@ import { AnswerComponent } from './answer/answer.component';
 import { ResultComponent } from './result/result.component';
 import { ChoiceComponent } from './choice/choice.component';
 
+import { CookieService } from 'ngx-cookie-service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +18,7 @@ import { ChoiceComponent } from './choice/choice.component';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
