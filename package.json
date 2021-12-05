@@ -1,11 +1,10 @@
 {
-  "name": "ip-calc-prac",
-  "version": "0.0.0",
+  "name": "ip-calc-practice",
+  "version": "0.0.1",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.config.json --host 0.0.0.0 --disable-host-check",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "clean": "rm -rf dist/*",
     "test": "ng test"
   },
   "private": true,
