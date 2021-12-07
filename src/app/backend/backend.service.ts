@@ -1,86 +1,133 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import * as HTTP from '@angular/common/http';
 
-import { CookieService } from 'ngx-cookie-service';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 import { AppConst } from '../app.const';
-import * as Models from './backend.models';
+import * as MDL from './backend.models';
+
 
 @Injectable({ providedIn: 'root' })
 export class BackendService {
+
   private appConst;
 
-  private httpOptions: any = {
-    headers: new HttpHeaders({
-      'Content-Type': 'multipart/form-data'
-    }),
-    observe: 'response',
-    body: null
-  };
+  private readonly errMsg: string =
+    '予期せぬエラーが発生しました。\nリロードしてください。';
 
   constructor(
-    private http: HttpClient,
-    private cookie: CookieService
+    private http: HTTP.HttpClient
   ) {
-    this.appConst = (new AppConst).main();
+    this.appConst = (new AppConst).self();
   }
 
-  public getInit(total: number, callback: (p: Models.InitType) => void): void {
-    const host = this.appConst.BACKEND_HOST + '/v1/init/' + total;
+  public getCheckCookie(): Observable<number> {
+    const host = this.appConst.BACKEND_HOST + '/hasCookie';
+    const option: any = { observe: 'response' };
 
-    this.http.get(host).subscribe({
-      next: (res) => {
-        callback(res as Models.QuestionSet);
-      },
-      error: (error) => {
-        callback(error as Models.ErrorMessage);
-      }
-    });
+    return this.http.get<any>(host, option).pipe(
+      map((res) => {
+        const r = res as HTTP.HttpResponseBase;
+        return r.status;
+      }),
+
+      catchError((err): Observable<number> => {
+        const res = err as HTTP.HttpResponseBase;
+        return of(res.status);
+      })
+    );
   }
 
-  public postNext(
-    qnum: number,
-    body: any,
-    callback: (p: Models.NextType) => void
-): void {
+  public getInit(total: number): Observable<MDL.InitType> {
+    const host = this.appConst.BACKEND_HOST + `/init/${total}`;
 
-    const cid = this.cookie.get('icp-id');
-    const host = this.appConst.BACKEND_HOST + '/v1/next/' + cid + '/' + qnum;
+    return this.http.get<MDL.InitType>(host).pipe(
+      map((res) => {
+        if (res == null) {
+          throw new Error('undefined');
+        }
 
-    this.http.post(host, body, this.httpOptions).subscribe({
-      next: (res) => {
-        const str = new TextDecoder().decode(res);
-        let end = false;
+        return res as MDL.QuestionSet;
+      }),
 
-        const obj = JSON.parse(str, (key, val) => {
-          if (key === "is_end") {
-            end = true;
-          }
-        })
+      catchError((err): Observable<MDL.ErrorMessage> => {
+        if (err == null || 'message' in err) {
+          const tmp: MDL.ErrorMessage = {
+            error:   'E999',
+            message: this.errMsg,
+          };
 
-        if (end) {
-          callback(obj as Models.SummaryCollection);
+          return of(tmp);
+        }
+
+        return of(err as MDL.ErrorMessage);
+      })
+    );
+  }
+
+  public postNext(id: string, qnum: number, body: MDL.AnswerSet):
+                                        Observable<MDL.NextType> {
+
+    const host = this.appConst.BACKEND_HOST + `/next/${id}/${qnum}`;
+    const h = new HTTP.HttpHeaders().set('Content-Type', 'multipart/form-data');
+
+    return this.http.post<MDL.NextType>(host, body, { headers: h }).pipe(
+      map((res) => {
+        if (res == null) {
+          throw new Error('undefined');
+        }
+
+        if ('is_end' in res) {
+          return res as MDL.SummaryCollection;
+
+        } else if ('q_number' in res) {
+          return res as MDL.QuestionSet;
 
         } else {
-          callback(obj as Models.QuestionSet);
+          throw new Error('invalidCast');
         }
-      },
-      error: (error) => {
-        callback(error as Models.ErrorMessage);
-      }
-    });
+      }),
+
+      catchError((err): Observable<MDL.ErrorMessage> => {
+        if (err == null || 'message' in err) {
+          const tmp: MDL.ErrorMessage = {
+            error:   'E999',
+            message: this.errMsg,
+          }
+
+          return of(tmp);
+        }
+
+        return of(err as MDL.ErrorMessage);
+      })
+    );
   }
 
-  public getResume(callback: (p: Models.ResumeType) => void): void {
-    const host = this.appConst.BACKEND_HOST + '/v1/resume';
+  public getResume(): Observable<MDL.ResumeType> {
+    const host = this.appConst.BACKEND_HOST + '/resume';
 
-    this.http.get(host).subscribe({
-      next: (res) => {
-        callback(res as Models.ResumeSet);
-      },
-      error: (error) => {
-        callback(error as Models.ErrorMessage);
-      }
-    });
+    return this.http.get<MDL.ResumeType>(host).pipe(
+      map((res) => {
+        if (res == null) {
+          throw new Error('undefined');
+        }
+
+        return res as MDL.ResumeSet;
+      }),
+
+      catchError((err): Observable<MDL.ErrorMessage> => {
+        if (err == null || 'message' in err) {
+          const tmp: MDL.ErrorMessage = {
+            error:   'E999',
+            message: this.errMsg,
+          }
+
+          return of(tmp);
+        }
+
+        return of(err as MDL.ErrorMessage);
+      })
+    );
   }
 }

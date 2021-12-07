@@ -1,13 +1,10 @@
-export type InitType = QuestionSet |
-                       ErrorMessage |
-                       undefined;
+export type InitType   = QuestionSet | ErrorMessage;
+
 export type NextType = QuestionSet |
                        SummaryCollection |
-                       ErrorMessage |
-                       undefined;
-export type ResumeType = ResumeSet |
-                         ErrorMessage |
-                         undefined;
+                       ErrorMessage;
+
+export type ResumeType = ResumeSet | ErrorMessage;
 
 export interface ErrorMessage {
   error:   string;
@@ -24,7 +21,7 @@ export interface QuestionSet {
 
 export interface ResumeSet {
   id:          string;
-  q_umber:     number;
+  q_number:    number;
   source:      string;
   cidr_bits:   number;
   subnet_mask: string;
@@ -47,4 +44,16 @@ export interface SummarySet {
   correct_bc:   string;
   answer_bc:    string;
   answered_sec: number;
+}
+
+export interface AnswerSet {
+  nwaddr_1st: string
+  nwaddr_2nd: string
+  nwaddr_3rd: string
+  nwaddr_4th: string
+  bcaddr_1st: string
+  bcaddr_2nd: string
+  bcaddr_3rd: string
+  bcaddr_4th: string
+  elapsed:    string
 }

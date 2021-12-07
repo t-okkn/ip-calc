@@ -1,30 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { BackendService } from './backend/backend.service';
-import { InitType } from './backend/backend.models';
+import { AppSharedService } from './app.shared.service';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+export class AppComponent implements OnInit {
 
-export class AppComponent {
+  get showInitBtn(): boolean {
+    return this.shared.showInitBtn;
+  }
+
+  get showAppChoice(): boolean {
+    return this.shared.showAppChoice;
+  }
+
+  get showAppAnswer(): boolean {
+    return this.shared.showAppAnswer;
+  }
+
+  get showAppResult(): boolean {
+    return this.shared.showAppResult;
+  }
+
+  get textSize(): string {
+    return this.shared.textSize;
+  }
+
+  get isError(): boolean {
+    return this.shared.isError;
+  }
+
   constructor(
-    private backend: BackendService
-  ) {}
+    private shared: AppSharedService
+  ) { }
 
-  onStartClick() {
-    this.backend.getInit(10, this.callbackInitial);
-  }
-
-  callbackInitial(res: InitType): void {
-    if (res == null) { return }
-
-    if ('id' in res) {
-      console.log(res.id);
-    } else {
-      console.log(res.error);
-    }
-  }
+  ngOnInit(): void { }
 }

@@ -1,0 +1,14 @@
+<div class="columns is-centered">
+  <div class="column is-one-quarter">
+    <button class="button is-primary is-fullwidth"
+            [ngClass]="{'is-outlined': hasCookie}" (click)="onInitClick()">
+      始めから
+    </button>
+  </div>
+  <div class="column is-one-quarter">
+    <button class="button is-primary is-fullwidth"
+            [disabled]="!hasCookie" (click)="onResumeClick()">
+      続きから
+    </button>
+  </div>
+</div>

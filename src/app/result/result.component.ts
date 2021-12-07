@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { AppSharedService } from '../app.shared.service';
 
 @Component({
   selector: 'app-result',
   templateUrl: './result.component.html',
   styleUrls: ['./result.component.scss']
 })
-export class ResultComponent implements OnInit {
+export class ResultComponent {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  get textSize(): string {
+    return this.shared.textSize;
   }
 
+  constructor(
+    private shared: AppSharedService
+  ) { }
 }

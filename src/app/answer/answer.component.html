@@ -1,7 +1,9 @@
 <div class="columns is-centered">
   <div class="column is-half">
     <div class="box">
-      <p class="title is-5 has-text-centered">192.168.255.255@255.255.255.254</p>
+      <p class="title has-text-centered" [ngClass]="textSize">
+        192.168.255.255@255.255.255.254
+      </p>
     </div>
 
     <form class="box">
@@ -92,7 +94,7 @@
       </tbody></table>
 
       <div class="control">
-        <input id="next" class="button is-primary is-fullwidth" type="submit" value="次へ">
+        <button class="button is-primary is-fullwidth" (click)="onNextClick()">次へ</button>
       </div>
     </form>
   </div>

@@ -1,24 +1,20 @@
 <section class="hero is-primary mb-5">
   <div class="hero-body">
     <div class="box">
-      <h1 class="title is-5 has-text-centered has-text-black">★IPアドレス計算練習★</h1>
+      <h1 class="title has-text-centered has-text-black"
+          [ngClass]="textSize">
+        ★IPアドレス計算練習★
+      </h1>
     </div>
   </div>
 </section>
 
-<section style="display: inline;">
-  <div class="columns is-centered">
-    <div class="column is-one-quarter">
-      <button class="button is-primary is-fullwidth" (click)="onStartClick()">始めから</button>
-    </div>
-    <div class="column is-one-quarter">
-      <button class="button is-primary is-fullwidth">続きから</button>
-    </div>
-  </div>
-</section>
+<app-error [style.display]="isError ? 'inline' : 'none'"></app-error>
 
-<app-choice style="display: none;"></app-choice>
+<app-init-btn [style.display]="showInitBtn ? 'inline' : 'none'"></app-init-btn>
 
-<app-answer style="display: inline;"></app-answer>
+<app-choice [style.display]="showAppChoice ? 'inline' : 'none'"></app-choice>
 
-<app-result style="display: none;"><app-result>
+<app-answer [style.display]="showAppAnswer ? 'inline' : 'none'"></app-answer>
+
+<app-result [style.display]="showAppResult ? 'inline' : 'none'"><app-result>
