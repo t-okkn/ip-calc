@@ -3,8 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import { CookieService } from 'ngx-cookie-service';
 import { BackendService } from './backend/backend.service';
+import { AppSharedService } from './app.shared.service';
+import { AppTimerService } from './app.timer.service';
 
 import { AppComponent } from './app.component';
 import { AnswerComponent } from './answer/answer.component';
@@ -20,16 +21,17 @@ import { InitBtnComponent } from './init-btn/init-btn.component';
     ResultComponent,
     ChoiceComponent,
     ErrorComponent,
-    InitBtnComponent
+    InitBtnComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
-    CookieService,
-    BackendService
+    BackendService,
+    AppSharedService,
+    AppTimerService,
   ],
   bootstrap: [AppComponent]
 })

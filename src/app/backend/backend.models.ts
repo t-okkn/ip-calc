@@ -55,5 +55,5 @@ export interface AnswerSet {
   bcaddr_2nd: string
   bcaddr_3rd: string
   bcaddr_4th: string
-  elapsed:    string
+  elapsed:    number
 }

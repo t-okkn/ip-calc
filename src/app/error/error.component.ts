@@ -10,14 +10,14 @@ import { AppSharedService } from '../app.shared.service';
 export class ErrorComponent{
 
   get errMessage(): string {
-    return this.shared.errMessage;
+    return this._shared.errMessage;
   }
-  
+
   constructor(
-    private shared: AppSharedService
+    private _shared: AppSharedService
   ) { }
 
   onDeleteClick() {
-    this.shared.isError = false;
+    this._shared.isError = false;
   }
 }

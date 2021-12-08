@@ -10,10 +10,10 @@ import { AppSharedService } from '../app.shared.service';
 export class ResultComponent {
 
   get textSize(): string {
-    return this.shared.textSize;
+    return this._shared.isError ? 'is-5' : 'is-4';
   }
 
   constructor(
-    private shared: AppSharedService
+    private _shared: AppSharedService
   ) { }
 }

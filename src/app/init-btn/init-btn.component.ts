@@ -3,8 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 
 import { BackendService } from '../backend/backend.service';
-import { ResumeType, QuestionSet } from '../backend/backend.models';
+import { ResumeType } from '../backend/backend.models';
 import { AppSharedService } from '../app.shared.service';
+import { AppTimerService } from '../app.timer.service';
+
+import { AppConst } from '../app.const';
 
 
 @Component({
@@ -14,42 +17,48 @@ import { AppSharedService } from '../app.shared.service';
 })
 export class InitBtnComponent implements OnInit {
 
-  hasCookie: boolean = false;
+  private _const;
+
+  hasCookie: boolean;
 
   constructor(
-    private backend: BackendService,
-    private shared: AppSharedService
-  ) { }
+    private _backend: BackendService,
+    private _shared: AppSharedService,
+    private _timer: AppTimerService
+  ) {
+    this._const = (new AppConst).self();
+    this.hasCookie = false;
+  }
 
   async ngOnInit(): Promise<void> {
-    const checkCookie$ = this.backend.getCheckCookie();
+    const checkCookie$ = this._backend.getCheckCookie();
     const status: number = await lastValueFrom(checkCookie$);
 
     this.hasCookie = status === 200;
   }
 
-  onInitClick(): void {
-    this.shared.showAppChoice = true;
-    this.shared.showInitBtn = false;
+  public onInitClick(): void {
+    this._shared.showAppChoice = true;
+    this._shared.showInitBtn = false;
   }
 
-  async onResumeClick(): Promise<void> {
-    const resume$ = this.backend.getResume();
+  public async onResumeClick(): Promise<void> {
+    const resume$ = this._backend.getResume();
     const params: ResumeType = await lastValueFrom(resume$);
 
     if ('error' in params) {
       if (Number(params.error.slice(1)) < 100) {
-        this.shared.errMessage = '現在、このアプリは利用可能な状態ではありません。\n時間が経ってからアクセスし直してください。';
+        this._shared.errMessage = this._const.ERR_SERIOUS;
 
       } else {
-        this.shared.errMessage = params.message;
+        this._shared.errMessage = params.message;
       }
 
-      this.shared.isError = true;
+      this._shared.isError = true;
       return;
     }
 
-    const qs: QuestionSet = {
+    this._shared.nowQuestion = {
       id:          params.id,
       q_number:    params.q_number,
       source:      params.source,
@@ -57,10 +66,9 @@ export class InitBtnComponent implements OnInit {
       subnet_mask: params.subnet_mask,
     };
 
-      //sharedでQuestionSetを持つか？
-      //タイマーをスタートさせる
-      //timer.start(params.elapsed) 的な
+    this._timer.start(params.elapsed);
 
-    this.shared.showInitBtn = false;
+    this._shared.showAppAnswer = true;
+    this._shared.showInitBtn = false;
   }
 }

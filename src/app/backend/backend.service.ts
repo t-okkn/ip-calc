@@ -1,48 +1,52 @@
 import { Injectable } from '@angular/core';
-import * as HTTP from '@angular/common/http';
+import {
+  HttpClient,
+  HttpResponse,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { AppConst } from '../app.const';
 import * as MDL from './backend.models';
+import { AppSharedService } from '../app.shared.service';
 
 
 @Injectable({ providedIn: 'root' })
 export class BackendService {
 
-  private appConst;
-
-  private readonly errMsg: string =
-    '予期せぬエラーが発生しました。\nリロードしてください。';
+  private _const;
 
   constructor(
-    private http: HTTP.HttpClient
+    private _http: HttpClient,
+    private _shared: AppSharedService
   ) {
-    this.appConst = (new AppConst).self();
+    this._const = (new AppConst).self();
   }
 
   public getCheckCookie(): Observable<number> {
-    const host = this.appConst.BACKEND_HOST + '/hasCookie';
+    const host = this._const.BACKEND_HOST + '/hasCookie';
     const option: any = { observe: 'response' };
 
-    return this.http.get<any>(host, option).pipe(
+    return this._http.get<any>(host, option).pipe(
       map((res) => {
-        const r = res as HTTP.HttpResponseBase;
+        const r = res as HttpResponse<any>;
         return r.status;
       }),
 
       catchError((err): Observable<number> => {
-        const res = err as HTTP.HttpResponseBase;
+        const res = err as HttpErrorResponse;
         return of(res.status);
       })
     );
   }
 
   public getInit(total: number): Observable<MDL.InitType> {
-    const host = this.appConst.BACKEND_HOST + `/init/${total}`;
+    const host = this._const.BACKEND_HOST + `/init/${total}`;
 
-    return this.http.get<MDL.InitType>(host).pipe(
+    return this._http.get<MDL.InitType>(host).pipe(
       map((res) => {
         if (res == null) {
           throw new Error('undefined');
@@ -55,7 +59,7 @@ export class BackendService {
         if (err == null || 'message' in err) {
           const tmp: MDL.ErrorMessage = {
             error:   'E999',
-            message: this.errMsg,
+            message: this._const.ERR_UNEXPECTED,
           };
 
           return of(tmp);
@@ -66,13 +70,13 @@ export class BackendService {
     );
   }
 
-  public postNext(id: string, qnum: number, body: MDL.AnswerSet):
-                                        Observable<MDL.NextType> {
+  public postNext(body: MDL.AnswerSet): Observable<MDL.NextType> {
+    const id = this._shared.nowQuestion.id;
+    const qnum = this._shared.nowQuestion.q_number;
 
-    const host = this.appConst.BACKEND_HOST + `/next/${id}/${qnum}`;
-    const h = new HTTP.HttpHeaders().set('Content-Type', 'multipart/form-data');
+    const host = this._const.BACKEND_HOST + `/next/${id}/${qnum}`;
 
-    return this.http.post<MDL.NextType>(host, body, { headers: h }).pipe(
+    return this._http.post<MDL.NextType>(host, body).pipe(
       map((res) => {
         if (res == null) {
           throw new Error('undefined');
@@ -90,10 +94,10 @@ export class BackendService {
       }),
 
       catchError((err): Observable<MDL.ErrorMessage> => {
-        if (err == null || 'message' in err) {
+        if (err == null || 'message' in err || 'status' in err) {
           const tmp: MDL.ErrorMessage = {
             error:   'E999',
-            message: this.errMsg,
+            message: this._const.ERR_UNEXPECTED,
           }
 
           return of(tmp);
@@ -105,9 +109,9 @@ export class BackendService {
   }
 
   public getResume(): Observable<MDL.ResumeType> {
-    const host = this.appConst.BACKEND_HOST + '/resume';
+    const host = this._const.BACKEND_HOST + '/resume';
 
-    return this.http.get<MDL.ResumeType>(host).pipe(
+    return this._http.get<MDL.ResumeType>(host).pipe(
       map((res) => {
         if (res == null) {
           throw new Error('undefined');
@@ -120,7 +124,7 @@ export class BackendService {
         if (err == null || 'message' in err) {
           const tmp: MDL.ErrorMessage = {
             error:   'E999',
-            message: this.errMsg,
+            message: this._const.ERR_UNEXPECTED,
           }
 
           return of(tmp);
