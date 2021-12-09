@@ -6,7 +6,7 @@ USER    := http
 GROUP   := http
 
 
-install: build
+install:
 	@command cp -fr dist/$(NAME) $(DSTDIR)/
 	@chown -R $(USER):$(GROUP) $(DSTDIR)/$(NAME)
 
