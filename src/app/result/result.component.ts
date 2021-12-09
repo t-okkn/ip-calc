@@ -70,6 +70,14 @@ export class ResultComponent {
     }
   }
 
+  public nwTxt(ss: SummarySet): boolean {
+    return ss.answer_nw !== ss.correct_nw
+  }
+
+  public bcTxt(ss: SummarySet): boolean {
+    return ss.answer_bc !== ss.correct_bc
+  }
+
   public getAnsweredTime(sec: number): string {
     return this._time.elapsedSecondToDisplay(sec);
   }

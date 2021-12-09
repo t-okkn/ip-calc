@@ -35,12 +35,16 @@
         <tbody>
           <tr>
             <th>NW</th>
-            <td>{{result.answer_nw}}</td>
+            <td [ngClass]="{'has-text-danger-dark': nwTxt(result)}">
+              {{result.answer_nw}}
+            </td>
             <td>{{result.correct_nw}}</td>
           </tr>
           <tr>
             <th>BC</th>
-            <td>{{result.answer_bc}}</td>
+            <td [ngClass]="{'has-text-danger-dark': bcTxt(result)}">
+              {{result.answer_bc}}
+            </td>
             <td>{{result.correct_bc}}</td>
           </tr>
         </tbody>
@@ -53,10 +57,9 @@
 </div>
 
 <div class="columns is-centered">
-  <div class="column is-one-quarter">
+  <div class="column is-one-quarter has-text-centered">
     <button class="button is-primary is-rounded" (click)="onReload()">
       最初に戻る
     </button>
   </div>
 </div>
-
