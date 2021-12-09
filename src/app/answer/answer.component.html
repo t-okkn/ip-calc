@@ -1,10 +1,15 @@
 <div class="columns is-centered">
   <div class="column is-half">
     <div class="box">
-      <p class="title" [ngClass]="textSize">
-        第{{questionNumber}}問
-      </p>
-      <p class="title has-text-centered question-body" [ngClass]="textSize">
+      <div class="icon-text">
+        <span class="icon">
+          <i class="fas fa-question"></i>
+        </span>
+        <p class="title" [ngClass]="textSize">
+          第{{questionNumber}}問
+        </p>
+      </div>
+      <p class="title has-text-centered display-newline" [ngClass]="textSize">
         {{question}}
       </p>
     </div>
@@ -38,7 +43,8 @@
             <span class="control">
               <input id="nwaddr_1st" name="nwaddr_1st" class="input"
                      type="text" inputmode="numeric" pattern="\d*"
-                     placeholder="192" [(ngModel)]="nowAns.nwaddr_1st"
+                     placeholder="192" ngModel maxlength="3"
+                     [(ngModel)]="nowAns.nwaddr_1st"
                      [ngClass]="nwErrCheck(nw1.value)"
                      (ngModelChange)="nwAddrChange()" #nw1>
             </span>
@@ -50,7 +56,8 @@
             <span class="control">
               <input id="nwaddr_2nd" name="nwaddr_2nd" class="input"
                      type="text" inputmode="numeric" pattern="\d*"
-                     placeholder="168" [(ngModel)]="nowAns.nwaddr_2nd"
+                     placeholder="168" ngModel maxlength="3"
+                     [(ngModel)]="nowAns.nwaddr_2nd"
                      [ngClass]="nwErrCheck(nw2.value)"
                      (ngModelChange)="nwAddrChange()" #nw2>
             </span>
@@ -62,7 +69,8 @@
             <span class="control">
               <input id="nwaddr_3rd" name="nwaddr_3rd" class="input"
                      type="text" inputmode="numeric" pattern="\d*"
-                     placeholder="0" [(ngModel)]="nowAns.nwaddr_3rd"
+                     placeholder="0" ngModel maxlength="3"
+                     [(ngModel)]="nowAns.nwaddr_3rd"
                      [ngClass]="nwErrCheck(nw3.value)"
                      (ngModelChange)="nwAddrChange()" #nw3>
             </span>
@@ -74,7 +82,8 @@
             <span class="control">
               <input id="nwaddr_4th" name="nwaddr_4th" class="input"
                      type="text" inputmode="numeric" pattern="\d*"
-                     placeholder="1" [(ngModel)]="nowAns.nwaddr_4th"
+                     placeholder="1" ngModel maxlength="3"
+                     [(ngModel)]="nowAns.nwaddr_4th"
                      [ngClass]="nwErrCheck(nw4.value)"
                      (ngModelChange)="nwAddrChange()" #nw4>
             </span>
@@ -103,7 +112,8 @@
             <span class="control">
               <input id="bcaddr_1st" name="bcaddr_1st" class="input"
                      type="text" inputmode="numeric" pattern="\d*"
-                     placeholder="192" [(ngModel)]="nowAns.bcaddr_1st"
+                     placeholder="192" ngModel maxlength="3"
+                     [(ngModel)]="nowAns.bcaddr_1st"
                      [ngClass]="bcErrCheck(bc1.value)"
                      (ngModelChange)="bcAddrChange()" #bc1>
             </span>
@@ -115,7 +125,8 @@
             <span class="control">
               <input id="bcaddr_2nd" name="bcaddr_2nd" class="input"
                      type="text" inputmode="numeric" pattern="\d*"
-                     placeholder="168" [(ngModel)]="nowAns.bcaddr_2nd"
+                     placeholder="168" ngModel maxlength="3"
+                     [(ngModel)]="nowAns.bcaddr_2nd"
                      [ngClass]="bcErrCheck(bc2.value)"
                      (ngModelChange)="bcAddrChange()" #bc2>
             </span>
@@ -127,7 +138,8 @@
             <span class="control">
               <input id="bcaddr_3rd" name="bcaddr_3rd" class="input"
                      type="text" inputmode="numeric" pattern="\d*"
-                     placeholder="0" [(ngModel)]="nowAns.bcaddr_3rd"
+                     placeholder="0" ngModel maxlength="3"
+                     [(ngModel)]="nowAns.bcaddr_3rd"
                      [ngClass]="bcErrCheck(bc3.value)"
                      (ngModelChange)="bcAddrChange()" #bc3>
             </span>
@@ -139,7 +151,8 @@
             <span class="control">
               <input id="bcaddr_4th" name="bcaddr_4th" class="input"
                      type="text" inputmode="numeric" pattern="\d*"
-                     placeholder="255" [(ngModel)]="nowAns.bcaddr_4th"
+                     placeholder="255" ngModel maxlength="3"
+                     [(ngModel)]="nowAns.bcaddr_4th"
                      [ngClass]="bcErrCheck(bc4.value)"
                      (ngModelChange)="bcAddrChange()" #bc4>
             </span>
