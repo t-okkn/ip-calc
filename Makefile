@@ -1,5 +1,5 @@
 NAME     := ip-calc-practice
-VERSION  := v0.0.1
+VERSION  := v0.1.0
 
 DSTDIR  := /srv/http
 USER    := http
