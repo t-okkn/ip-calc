@@ -80,7 +80,8 @@
               "browserTarget": "ip-calc-practice:build:production"
             },
             "development": {
-              "browserTarget": "ip-calc-practice:build:development"
+              "browserTarget": "ip-calc-practice:build:development",
+              "proxyConfig": "proxy.config.json"
             }
           },
           "defaultConfiguration": "development"

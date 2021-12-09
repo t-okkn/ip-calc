@@ -1,9 +1,8 @@
+import { environment } from './../environments/environment';
+
 export class AppConst {
 
-  // Debug用
-  static readonly BACKEND_HOST: string = '/backend/v1';
-  // 本番用
-  //static readonly BACKEND_HOST: string = '/api/v1;
+  static readonly BACKEND_HOST: string = environment.backend;
 
   static readonly COOKIE_NAME: string = 'icp-id';
 
