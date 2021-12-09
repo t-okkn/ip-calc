@@ -230,5 +230,8 @@ export class AnswerComponent {
     this.nowAns.bcaddr_2nd = '';
     this.nowAns.bcaddr_3rd = '';
     this.nowAns.bcaddr_4th = '';
+
+    this.nwaddr = '0.0.0.0';
+    this.bcaddr = '0.0.0.0';
   }
 }
