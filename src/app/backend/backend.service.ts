@@ -56,7 +56,7 @@ export class BackendService {
       }),
 
       catchError((err): Observable<MDL.ErrorMessage> => {
-        if (err == null || 'message' in err) {
+        if (err == null || 'message' in err || 'status' in err) {
           const tmp: MDL.ErrorMessage = {
             error:   'E999',
             message: this._const.ERR_UNEXPECTED,
@@ -121,7 +121,7 @@ export class BackendService {
       }),
 
       catchError((err): Observable<MDL.ErrorMessage> => {
-        if (err == null || 'message' in err) {
+        if (err == null || 'message' in err || 'status' in err) {
           const tmp: MDL.ErrorMessage = {
             error:   'E999',
             message: this._const.ERR_UNEXPECTED,

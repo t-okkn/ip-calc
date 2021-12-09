@@ -38,7 +38,7 @@ export class AppTimerService {
     }
   }
 
-  public convertDisplayValue(v: number): string {
+  public elapsedSecondToDisplay(v: number): string {
     const h = (v - (v % 3600)) / 3600;
     const m = (v - 3600 * h - ((v - 3600 * h) % 60)) / 60;
     const s = v - 3600 * h - 60 * m;

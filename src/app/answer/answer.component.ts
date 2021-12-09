@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { lastValueFrom } from 'rxjs';
 
@@ -57,7 +57,7 @@ export class AnswerComponent {
   get elapsedTime(): string {
     const d = this._timer.elapsed;
 
-    return this._timer.convertDisplayValue(d);
+    return this._timer.elapsedSecondToDisplay(d);
   }
 
   constructor(

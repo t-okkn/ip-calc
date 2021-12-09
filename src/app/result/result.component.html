@@ -1,37 +1,67 @@
 <div class="columns is-centered">
   <div class="column is-half">
-    <h2 class="title is-4 has-text-centered">★結果発表★</h2>
+    <div class="icon-text">
+      <h2 class="title has-text-centered" [ngClass]="textSize">
+        <span class="icon">
+          <i class="far fa-grin-stars"></i>
+        </span>
+        結果発表
+        <span class="icon">
+          <i class="far fa-grin-tears"></i>
+        </span>
+      </h2>
+    </div>
   </div>
 </div>
 
 <div class="columns is-multiline">
-  <div class="column is-6">
-    <div class="box has-background-danger-light">
-      <p class="title is-4">■1問目</p>
-      <p class="subtitle is-4">&emsp;192.168.111.111<br>&emsp;@255.255.255.240</p>
-      <table class="table is-fullwidth">
+  <div class="column is-6" *ngFor="let result of results">
+    <div class="box" [ngClass]="getBackgroundColor(result)">
+      <div class="icon-text">
+        <p class="title" [ngClass]="textSize">
+          <span class="icon" [ngClass]="getIconColor(result)">
+            <i [ngClass]="getIcon(result)"></i>
+          </span>
+          {{result.q_number}}問目
+        </p>
+      </div>
+      <p class="subtitle question-body has-text-centered" [ngClass]="textSize">
+        {{getDisplayQuestion(result)}}
+      </p>
+      <table class="table is-fullwidth" [ngClass]="getBackgroundColor(result)">
         <thead>
           <tr>
             <th></th>
-            <th>解答</th>
-            <th>正解</th>
+            <th>あなたの答え</th>
+            <th>正しい答え</th>
           </tr>
         </thead>
 
         <tbody>
           <tr>
             <th>NW</th>
-            <td>111.111.111.111</td>
-            <td>1.1.1.1</td>
+            <td>{{result.answer_nw}}</td>
+            <td>{{result.correct_nw}}</td>
           </tr>
           <tr>
             <th>BC</th>
-            <td>222.222.222.222</td>
-            <td>222.222.222.222</td>
+            <td>{{result.answer_bc}}</td>
+            <td>{{result.correct_bc}}</td>
           </tr>
         </tbody>
       </table>
+      <p class="has-text-right" [ngClass]="textSize">
+        解答時間：{{getAnsweredTime(result.answered_sec)}}
+      </p>
     </div>
+  </div>
+</div>
+
+<div class="columns is-centered">
+  <div class="column is-one-quarter">
+    <button class="button is-primary is-rounded" (click)="onReload()">
+      最初に戻る
+    </button>
   </div>
 </div>
 
