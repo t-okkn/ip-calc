@@ -1,15 +1,22 @@
-# ip-calc-practice
-IPアドレス計算練習WEBアプリ
+# ip-calc
+IPアドレス計算WEBアプリ
 
 ## ※注意
 当アプリケーションは、Webアプリケーションの練習として作成したアプリケーションです。<br>
 **致命的なバグや脆弱性**を含んでいる可能性がありますので、手元環境での動作は自己責任でお願いいたします。
 
 ## インストール方法
-（工事中）
+バックエンド接続部のPathについては各自で修正してください。<br>
+`src/environments/environment.prod.ts` ファイルの `backend` の値になります。<br>
+<br>
+その後、ビルドとファイルコピーを実施してください。
 
+```termainal
+$ npm run build:production
+$ command cp -af /dist/ip-calc/* /path/to/install/
+```
 
-## 概要
+## Angular
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.9.
 
 ## Development server

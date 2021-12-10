@@ -1,5 +1,5 @@
 {
-  "name": "ip-calc-practice",
+  "name": "ip-calc",
   "version": "0.1.0",
   "scripts": {
     "start": "ng serve --host 0.0.0.0 --disable-host-check",

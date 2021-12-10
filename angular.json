@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ip-calc-practice": {
+    "ip-calc": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ip-calc-practice",
+            "outputPath": "dist/ip-calc",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -77,10 +77,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ip-calc-practice:build:production"
+              "browserTarget": "ip-calc:build:production"
             },
             "development": {
-              "browserTarget": "ip-calc-practice:build:development",
+              "browserTarget": "ip-calc:build:development",
               "proxyConfig": "proxy.config.json"
             }
           },
@@ -89,7 +89,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ip-calc-practice:build"
+            "browserTarget": "ip-calc:build"
           }
         },
         "test": {
@@ -118,5 +118,5 @@
       }
     }
   },
-  "defaultProject": "ip-calc-practice"
+  "defaultProject": "ip-calc"
 }
