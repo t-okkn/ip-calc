@@ -8,7 +8,7 @@ import { AnswerSet, NextType } from '../backend/backend.models';
 import { AppSharedService } from '../app.shared.service';
 import { AppTimerService } from '../app.timer.service';
 
-import { AppConst } from '../app.const';
+import { Err } from '../app.const';
 
 @Component({
   selector: 'app-answer',
@@ -16,8 +16,6 @@ import { AppConst } from '../app.const';
   styleUrls: ['./answer.component.scss']
 })
 export class AnswerComponent {
-
-  private _const;
 
   nowAns: AnswerSet;
 
@@ -65,8 +63,6 @@ export class AnswerComponent {
     private _timer: AppTimerService,
     private _backend: BackendService
   ) {
-    this._const = (new AppConst).self();
-
     this.nwaddr = '0.0.0.0';
     this.bcaddr = '0.0.0.0';
 
@@ -194,7 +190,7 @@ export class AnswerComponent {
 
     if ('error' in params) {
       if (Number(params.error.slice(1)) < 100) {
-        this._shared.errMessage = this._const.ERR_SERIOUS;
+        this._shared.errMessage = Err.SERIOUS;
 
       } else {
         this._shared.errMessage = params.message;

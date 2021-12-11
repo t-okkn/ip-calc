@@ -7,7 +7,7 @@ import { ResumeType } from '../backend/backend.models';
 import { AppSharedService } from '../app.shared.service';
 import { AppTimerService } from '../app.timer.service';
 
-import { AppConst } from '../app.const';
+import { Err } from '../app.const';
 
 
 @Component({
@@ -17,8 +17,6 @@ import { AppConst } from '../app.const';
 })
 export class InitBtnComponent implements OnInit {
 
-  private _const;
-
   hasCookie: boolean;
 
   constructor(
@@ -26,7 +24,6 @@ export class InitBtnComponent implements OnInit {
     private _shared: AppSharedService,
     private _timer: AppTimerService
   ) {
-    this._const = (new AppConst).self();
     this.hasCookie = false;
   }
 
@@ -48,7 +45,7 @@ export class InitBtnComponent implements OnInit {
 
     if ('error' in params) {
       if (Number(params.error.slice(1)) < 100) {
-        this._shared.errMessage = this._const.ERR_SERIOUS;
+        this._shared.errMessage = Err.SERIOUS;
 
       } else {
         this._shared.errMessage = params.message;

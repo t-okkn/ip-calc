@@ -7,7 +7,7 @@ import { InitType } from '../backend/backend.models';
 import { AppSharedService } from '../app.shared.service';
 import { AppTimerService } from '../app.timer.service';
 
-import { AppConst } from '../app.const';
+import { Err } from '../app.const';
 
 
 @Component({
@@ -16,8 +16,6 @@ import { AppConst } from '../app.const';
   styleUrls: ['./choice.component.scss']
 })
 export class ChoiceComponent {
-
-  private _const;
 
   q_number: number;
 
@@ -28,8 +26,6 @@ export class ChoiceComponent {
     private _shared: AppSharedService,
     private _timer: AppTimerService
   ) {
-    this._const = (new AppConst).self();
-
     this.q_number = 10;
     this.q_nums = [];
 
@@ -44,7 +40,7 @@ export class ChoiceComponent {
 
     if ('error' in params) {
       if (Number(params.error.slice(1)) < 100) {
-        this._shared.errMessage = this._const.ERR_SERIOUS;
+        this._shared.errMessage = Err.SERIOUS;
 
       } else {
         this._shared.errMessage = params.message;

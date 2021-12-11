@@ -9,7 +9,7 @@ import {
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
-import { AppConst } from '../app.const';
+import { Const, Err } from '../app.const';
 import * as MDL from './backend.models';
 import { AppSharedService } from '../app.shared.service';
 
@@ -17,17 +17,13 @@ import { AppSharedService } from '../app.shared.service';
 @Injectable({ providedIn: 'root' })
 export class BackendService {
 
-  private _const;
-
   constructor(
     private _http: HttpClient,
     private _shared: AppSharedService
-  ) {
-    this._const = (new AppConst).self();
-  }
+  ) { }
 
   public getCheckCookie(): Observable<number> {
-    const host = this._const.BACKEND_HOST + '/hasCookie';
+    const host = Const.BACKEND_HOST + '/hasCookie';
     const option: any = { observe: 'response' };
 
     return this._http.get<any>(host, option).pipe(
@@ -44,7 +40,7 @@ export class BackendService {
   }
 
   public getInit(total: number): Observable<MDL.InitType> {
-    const host = this._const.BACKEND_HOST + `/init/${total}`;
+    const host = Const.BACKEND_HOST + `/init/${total}`;
 
     return this._http.get<MDL.InitType>(host).pipe(
       map((res) => {
@@ -59,7 +55,7 @@ export class BackendService {
         if (err == null || 'message' in err || 'status' in err) {
           const tmp: MDL.ErrorMessage = {
             error:   'E999',
-            message: this._const.ERR_UNEXPECTED,
+            message: Err.UNEXPECTED,
           };
 
           return of(tmp);
@@ -74,7 +70,7 @@ export class BackendService {
     const id = this._shared.nowQuestion.id;
     const qnum = this._shared.nowQuestion.q_number;
 
-    const host = this._const.BACKEND_HOST + `/next/${id}/${qnum}`;
+    const host = Const.BACKEND_HOST + `/next/${id}/${qnum}`;
 
     return this._http.post<MDL.NextType>(host, body).pipe(
       map((res) => {
@@ -97,7 +93,7 @@ export class BackendService {
         if (err == null || 'message' in err || 'status' in err) {
           const tmp: MDL.ErrorMessage = {
             error:   'E999',
-            message: this._const.ERR_UNEXPECTED,
+            message: Err.UNEXPECTED,
           }
 
           return of(tmp);
@@ -109,7 +105,7 @@ export class BackendService {
   }
 
   public getResume(): Observable<MDL.ResumeType> {
-    const host = this._const.BACKEND_HOST + '/resume';
+    const host = Const.BACKEND_HOST + '/resume';
 
     return this._http.get<MDL.ResumeType>(host).pipe(
       map((res) => {
@@ -124,7 +120,7 @@ export class BackendService {
         if (err == null || 'message' in err || 'status' in err) {
           const tmp: MDL.ErrorMessage = {
             error:   'E999',
-            message: this._const.ERR_UNEXPECTED,
+            message: Err.UNEXPECTED,
           }
 
           return of(tmp);
